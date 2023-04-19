@@ -1,15 +1,18 @@
 import './App.css';
 import Navbar from './components/Navbar/navbar';
 import "bootstrap/dist/css/bootstrap.min.css";
-import UploadListing from './components/uploadphoto';
+import SiteRoutes from './components/routing';
+import { BrowserRouter as Router } from 'react-router-dom'
 
 function App() {
 
   return (
-    <div>
-      <Navbar />
-      <UploadListing />
-    </div>
+    <Router>
+      <div className='App'>
+        <Navbar />
+        <SiteRoutes />
+      </div>
+    </Router>
   );
 }
 

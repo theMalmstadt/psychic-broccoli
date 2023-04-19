@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { WithContext as ReactTags } from 'react-tag-input';
+import '../css/reactTags.css'
 
-const KeyCodes = { comma: 188, enter: 13 }
-const delimiters = [KeyCodes.comma, KeyCodes.enter]
+const KeyCodes = { comma: 188, enter: 13, space: 32 }
+const delimiters = [KeyCodes.comma, KeyCodes.enter, KeyCodes.space]
 
 const UploadListing = () => {
 
@@ -10,22 +11,10 @@ const UploadListing = () => {
     const [selectedFiles, setSelectedFiles] = useState(undefined)
     const [imagePreviews, setImagePreviews] = useState([])
     const [tags, setTags] = useState([])
-    // const [price, setPrice] = useState(null)
-    // const [desc, setDesc] = useState("")
-    // const [title, setTitle] = useState("")
 
     const handleTagDelete = i => { setTags(tags.filter((tag, index) => index !== i)) }
     const handleTagAddition = tag => { setTags([...tags, tag]) }
 
-    const handleTagDrag = (tag, currPos, newPos) => {
-        const newTags = tags.slice();
-
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
-
-        // re-render
-        setTags(newTags);
-    }
 
     const handleTagClick = index => {
         console.log('The tag at index ' + index + ' was clicked');
@@ -98,15 +87,20 @@ const UploadListing = () => {
                                 <div className="input-group mb-3">
                                     <span className="input-group-text">Tags</span>
                                     <ReactTags
+                                        classNames={{
+                                            tagInputField: "form-control"
+                                        }}
                                         name="tags"
                                         tags={tags}
                                         delimiters={delimiters}
                                         handleDelete={handleTagDelete}
                                         handleAddition={handleTagAddition}
-                                        handleDrag={handleTagDrag}
                                         handleTagClick={handleTagClick}
-                                        inputFieldPosition="bottom"
+                                        inputFieldPosition='inline'
+                                        maxLength={8}
+                                        allowUnique={true}
                                         autocomplete
+                                        allowDragDrop={false}
                                     />
                                 </div>
                             </div>
